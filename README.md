@@ -1,158 +1,173 @@
-# 🏡 Airbnb Availability Prediction — Hackathon A1  
+# Airbnb Availability Prediction — Hackathon A1
 
-This project builds an end-to-end data pipeline to prepare a unified ML-ready dataset for predicting whether an Airbnb listing will be **available on a given date**.  
-We work with InsideAirbnb data for one city, consisting of:
-
-- calendar.csv  
-- listings.csv  
-- reviews.csv  
-
-The assignment emphasizes:
-- Good Git & GitHub practice  
-- Clear and meaningful commits  
-- Balanced teamwork using feature branches  
-- Exploratory data analysis with thoughtful reasoning  
-- Strong feature engineering  
-- A clean, unified dataset ready for future machine learning  
+This project develops an end-to-end data pipeline to create a unified ML-ready dataset for predicting whether an Airbnb listing will be available on a given date. The project uses InsideAirbnb data consisting of calendar.csv.gz, listings.csv.gz, and reviews.csv.gz.
 
 ---
 
-## 👥 Team & Responsibilities
+## Team Responsibilities
 
-Each teammate prepared one dataset and contributed to the final merge.
-
-| Member        | Branch      | Responsibilities |
-|--------------|-------------|------------------|
-| **Max Voss**                  | `feat/max`                    | Support in Calendar dataset: cleaning, temporal features and design of the read.me |
-| **Jan Philipp Gnau**          | `feat/janp`                   | Listings dataset: property & host features, categorical encoding, missing-value strategy |
-| **Mohamaed Aymen Elmezouari** | `feat/mohamedaymen`  | Reviews dataset: review aggregates, recency metrics, optional text/NLP features |
-| **Lorenzo Giovanni Costa**    | `feat/lorenzo`          | Reviews dataset: review aggregates, recency metrics, optional text/NLP features |
-| **Alessandro Mezzanotte**     | `feat/alessandro`        | Calendar dataset: cleaning, temporal features, booking horizon, rolling booking rate, price features |
-| **All**                       | `main`      | Final dataset merge, QA checks, documentation |
+| Member | Branch | Responsibilities |
+|--------|--------|-------------------|
+| **Max Voss** | `feat/max` | Support in Calendar dataset: cleaning, temporal features and design of the read.me |
+| **Jan Philipp Gnau** | `feat/janp` | Listings dataset: property & host features, categorical encoding, missing-value strategy |
+| **Mohamed Aymen Elmezouari** | `feat/mohamedaymen` | Reviews dataset: review aggregates, recency metrics, optional text/NLP features |
+| **Lorenzo Giovanni Costa** | `feat/lorenzo` | Reviews dataset: review aggregates, recency metrics, optional text/NLP features |
+| **Alessandro Mezzanotte** | `feat/alessandro` | Calendar dataset: cleaning, temporal features, booking horizon, rolling booking rate, price features |
+| **All** | `main` | Final dataset merge, QA checks, documentation |
 
 ---
 
-## 📁 Project Structure
+## Project Structure
+
+```
 hackathon_a1/
 │
 ├── data/
-│ ├── calendar.csv
-│ ├── listings.csv
-│ ├── reviews.csv
-│ └── calendar_prepared.csv
+│   ├── calendar.csv.gz
+│   ├── listings.csv.gz
+│   ├── reviews.csv.gz
+│
+├── notebooks/
+│   ├── data_cleaning.ipynb          ← main full pipeline: cleaning + feature engineering + merging
+│   ├── data_analysis.ipynb          ← exploratory analysis & visual insights
+│   ├── Data_cleaning_Listings.ipynb ← listings-specific preprocessing
+│
+├── .ipynb_checkpoints/
 │
 ├── H1.ipynb
 ├── README.md
 ├── environment.yml
-└── .gitignore
+├── .gitignore
+├── calendar.csv.gz
+├── listings.csv.gz
+└── Untitled.ipynb
+```
 
 ---
 
-## 🔄 Workflow Overview
+## Workflow Overview
 
-### 1. Load & Inspect Raw Data
-We begin by:
-- Checking data types  
-- Inspecting missing values  
-- Detecting duplicates  
-- Understanding data distributions  
+### 1. Raw Data Inspection  
+Performed in data_analysis.ipynb and H1.ipynb:
+- Inspect column types  
+- Detect missing values  
+- Identify duplicates  
+- Explore initial patterns (availability, prices)  
 
 ---
 
-### 2. Feature Engineering (per dataset)
+### 2. Data Cleaning & Feature Engineering  
+Implemented in notebooks/data_cleaning.ipynb.
 
-#### Calendar Dataset (Max)
-Engineered features:
-- `available_flag` (1 = available, 0 = booked)  
-- Cleaned price fields: `price_num`, `log_price`  
-- Temporal features: `year`, `month`, `day_of_week`, `week_of_year`, `is_weekend`, `is_high_season`  
-- Booking horizon feature: `days_ahead`  
-- Rolling demand trend: `booked_rate_last7`  
-- Price competitiveness: `price_relative = price_num / median_price_per_listing`  
-- Exported cleaned file: `calendar_prepared.csv`
+#### Calendar dataset  
+Features created:
+- available_flag  
+- price_num, log_price  
+- year, month, day_of_week, week_of_year  
+- is_weekend, is_high_season  
+- days_ahead  
+- booked_rate_last7  
+- price_relative  
 
-#### Listings Dataset
-- Host and property characteristics  
-- Neighborhood grouping  
-- Missing-value treatment  
-- Encoding categorical variables  
+#### Listings dataset  
+Prepared in Data_cleaning_Listings.ipynb:
+- Host features  
+- Property characteristics  
+- Neighbourhood fields  
+- Missing value handling  
+- Categorical encoding  
 
-#### Reviews Dataset
-- Aggregated review counts  
+#### Reviews dataset  
+Processed inside the main cleaning pipeline:
+- Review counts  
 - Review recency  
-- Optional sentiment/text-derived metrics  
+- Optional text-based features  
 
 ---
 
-### 3. Unified Dataset Assembly
+### 3. Unified Dataset Assembly  
+Inside data_cleaning.ipynb, the datasets are merged:
 
-Final merge:
+```
 calendar_prepared
-
-listings_prepared
-
-reviews_prepared
++ listings_prepared
++ reviews_prepared
 → unified_ml_dataset
+```
 
-Join keys:
-- `listing_id`
-- `date`
+Merged using listing_id and date.
 
-The final dataset contains:
-- Target (`available_flag`)  
-- Temporal and price features  
-- Host and property characteristics  
-- Review-based features  
-
----
-
-## 📊 Exploratory Data Analysis (EDA)
-
-Insights include:
-- Target imbalance in `available_flag`  
-- Weekly patterns (weekend vs weekday availability)  
-- Monthly/seasonal variation  
-- Price elasticity (higher price → lower availability)  
-- Combined weekly + seasonal patterns (month × weekday heatmap)  
-
-Each visualization answers a clear analytical question to guide feature engineering.
+Final dataset includes:
+- Availability target  
+- Temporal features  
+- Host & property information  
+- Price features  
+- Review indicators  
+- Demand trends  
 
 ---
 
-## 🔧 Environment Setup
+## Exploratory Data Analysis (EDA)
+
+Performed in data_analysis.ipynb:
+- Weekly availability cycles  
+- Seasonal booking trends  
+- Price sensitivity  
+- Heatmaps of weekday × month patterns  
+- Minimum-night rules  
+
+---
+
+## Environment Setup
+
+```
 conda env create -f environment.yml
 conda activate hackathon_env
+```
 
 ---
 
-## 🔐 Git & Collaboration Workflow
+## Git & Collaboration Workflow
 
-We follow a structured branching workflow:
-
-- One feature branch per teammate  
-- Frequent, meaningful commits  
-- Pull Requests into `main`  
-- `.gitignore` used to exclude unnecessary files  
-- Clean project history reflecting collaboration  
-
-Example workflow:
+```
 git checkout feat/max
-git add README.md H1.ipynb
-git commit -m "Add calendar EDA and README"
+git add README.md
+git commit -m "Update README with team and structure"
 git push origin feat/max
+```
+
+Merging:
+
+```
+git checkout main
+git pull origin main
+git merge feat/max
+git push origin main
+```
+
+Workflow principles:
+- Dedicated feature branches  
+- Clear commit messages  
+- Pull requests into main  
+- Conflict resolution  
+- .gitignore coverage  
 
 ---
 
-## 📦 Final Deliverables
+## Final Deliverables
 
-- Complete notebook: `H1.ipynb`  
-- Cleaned & engineered calendar dataset  
-- Listings & Reviews engineered datasets  
 - Unified ML-ready dataset  
-- README.md  
+- Cleaning pipeline → notebooks/data_cleaning.ipynb  
+- Listings cleaning → Data_cleaning_Listings.ipynb  
+- EDA notebook → data_analysis.ipynb  
+- README  
 - environment.yml  
 
 ---
+
+## Acknowledgments
+
+Thanks to InsideAirbnb for open data and ESADE faculty for providing the Git-based collaboration framework.
 
 
 

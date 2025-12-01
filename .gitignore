@@ -1,0 +1,67 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+
+# Jupyter Notebook
+.ipynb_checkpoints/
+*.ipynb_checkpoints
+
+# Environments (just in case someone creates one locally)
+venv/
+env/
+ENV/
+.venv
+hackathon_env/
+
+# Data files (adjust if you need to commit data)
+*.csv
+*.xlsx
+*.xls
+*.parquet
+*.json
+*.xml
+*.sqlite
+*.db
+
+# Large output files
+*.pkl
+*.pickle
+*.h5
+*.hdf5
+
+# Model files
+*.model
+*.joblib
+*.sav
+
+# IDE settings
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS files
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+
+# pytest
+.pytest_cache/
+.coverage
+htmlcov/
+
+# Logs
+*.log
+
+# Temporary files
+*.tmp
+*.temp
+.cache/

@@ -1,11 +1,11 @@
 # Hackathon Project
 
 ## Team members
-1. -
-2. -
-3. -
-4. -
-5. -
+1. Max Voss (maximilianhermannfriedrich.voss@alumni.esade.edu)
+2. Alessandro Mezzanotte (alessandro.mezzanotte@alumni.esade.edu)
+3. Mohamed Aymen Elmezouari (mohamedaymen.elmezouari@alumni.esade.edu)
+4. Lorenzo Giovanni Costa (lorenzogiovanni.costa@alumni.esade.edu)
+5. Jan Philipp Gnau (janphilipp.gnau@alumni.esade.edu)
 
 
 ## Setup

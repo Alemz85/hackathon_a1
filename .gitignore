@@ -18,6 +18,7 @@ hackathon_env/
 
 # Data files (adjust if you need to commit data)
 *.csv
+*.csv.gz
 *.xlsx
 *.xls
 *.parquet
